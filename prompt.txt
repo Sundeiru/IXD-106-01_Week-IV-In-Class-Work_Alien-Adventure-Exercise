@@ -1,0 +1,8 @@
+Create an interaction with the provided assets:
+
+• All assets are initially hidden except alien-no-helmet and helmet
+
+1. When the user clicks the helmet, the helmet fades away and the alien-no-helmet switches by fading into alien-helmet. After a pause, the ufo appears by fading into scene.
+2. If the user clicks the ufo, alien-helmet disappears and alien-inside appears. From now on, ufo and alien-inside function as one unit which will be called alien-ufo.
+3. After alien-ufo forms, the planet fadse into scene after a short pause.
+4. If the user clicks on the planet, then alien-ufo moves to the planet. After it reaches the planet, alien-ufo reduces size until it disappears into the planet.
