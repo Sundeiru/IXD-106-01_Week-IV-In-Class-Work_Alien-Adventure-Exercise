@@ -8,32 +8,16 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+      overflow: hidden;
       background: #0d0d2b;
     }
 
     svg {
-      width: 877px;
-      max-width: 100vw;
-      height: auto;
+      display: block;
+      width: 100vw;
+      height: 100vh;
       user-select: none;
       -webkit-user-select: none;
-    }
-
-    #hint {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.7);
-      font-family: sans-serif;
-      font-size: 14px;
-      pointer-events: none;
-      transition: opacity 0.5s;
-      text-align: center;
     }
   </style>
 </head>
@@ -132,16 +116,13 @@
 </g>
 </svg>
 
-<div id="hint">Drag the helmet onto the alien</div>
-
 <script>
 (function () {
   'use strict';
 
   // ─── Helpers ────────────────────────────────────────────────────────────────
 
-  const svg   = document.getElementById('scene');
-  const hint  = document.getElementById('hint');
+  const svg = document.getElementById('scene');
 
   function el(id) { return document.getElementById(id); }
 
@@ -291,7 +272,6 @@
   function onHelmetDropped() {
     state = 1;
     setPointer('helmet', 'none');
-    hint.textContent = '';
 
     // Fade out the draggable helmet
     fadeOut('helmet', 400, () => {
@@ -301,7 +281,6 @@
         setTimeout(() => {
           fadeIn('ufo', 800, () => {
             setupAlienDrag();
-            hint.textContent = 'Drag the alien into the UFO';
           });
         }, 900);
       });
@@ -374,7 +353,6 @@
     el('alien').style.cursor = 'default';
     el('alien').removeEventListener('mousedown', alienPointerDown);
     el('alien').removeEventListener('touchstart', alienPointerDown);
-    hint.textContent = '';
 
     // Alien fades out
     fadeOut('alien', 400, () => {
@@ -384,7 +362,6 @@
         setTimeout(() => {
           fadeIn('planet', 900, () => {
             setupPlanetClick();
-            hint.textContent = 'Click the planet';
           });
         }, 700);
       });
@@ -403,7 +380,6 @@
     state = 3;
     el('planet').style.cursor = 'default';
     el('planet').removeEventListener('click', onPlanetClicked);
-    hint.textContent = '';
 
     // Measure centers in SVG space
     const ufoBB     = el('ufo').getBBox();
@@ -450,8 +426,6 @@
       }, () => {
         setOpacity('ufo',          0, 0);
         setOpacity('alien-inside', 0, 0);
-        hint.textContent = '🛸 Safe travels!';
-        setTimeout(() => { hint.style.opacity = '0'; }, 2500);
       });
     });
   }
